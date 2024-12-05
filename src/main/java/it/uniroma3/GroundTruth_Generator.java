@@ -1,6 +1,8 @@
 package it.uniroma3;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.io.IOException;
+
 
 public class GroundTruth_Generator {
 
@@ -14,7 +16,7 @@ public class GroundTruth_Generator {
      */
     public static Map<String, List<String>> generateGroundTruth(List<String> queries, 
                                                                 Map<TableMetadata, Table> allTables, 
-                                                                int topN) {
+                                                                int topN) throws IOException {
         Map<String, List<String>> groundTruth = new HashMap<>();
 
         for (String query : queries) {

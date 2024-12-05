@@ -1,7 +1,7 @@
 
 package it.uniroma3;
 
-// Classe per rappresentare la struttura dell tabella JSON in Java
+// Classe per rappresentare la tabella JSON in Java (metadati esclusi)
 public class Table {
     private String[] headers;
     private String[][] rows;

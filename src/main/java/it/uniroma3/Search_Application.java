@@ -74,8 +74,8 @@ public  class Search_Application {
 
     
     public static void main(String args[]) throws Exception {
-        Path path = Paths.get("E:/homework3/all_tables");
-        Path indexPath = Paths.get("E:/homework3/index");
+        Path path = Paths.get("/users/giorgia/ingegneria-dei-dati/all_tables");
+        Path indexPath = Paths.get("/users/giorgia/ingegneria-dei-dati/homework3/index");
         int htmlError = 0;
         long start_searchTime = 0, end_searchTime = 0, searchTime = 0;
         FSDirectory directory = null;

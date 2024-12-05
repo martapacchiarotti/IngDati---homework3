@@ -50,7 +50,7 @@ public class Validate_Application {
 
     public static void main(String[] args) throws Exception {
         // Configurazione percorsi e preparazione Lucene
-        Path indexPath = Paths.get("E:/homework3/index");
+        Path indexPath = Paths.get("/users/giorgia/ingegneria-dei-dati/homework3/index");
         FSDirectory directory = FSDirectory.open(indexPath);
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher searcher = new IndexSearcher(reader);
@@ -74,7 +74,7 @@ public class Validate_Application {
         Map<TableMetadata,Table> allTables = loadAllTables(reader);
         // Calcola la ground truth per tutte le query
         // restituisce una mappa di elementi (query,lista di tabelle pertinenti)
-        Map<String, List<String>> groundTruth = GroundTruth_Generator.generateGroundTruth(queries,allTables,100);
+        Map<String, List<String>> groundTruth = GroundTruth_Generator.generateGroundTruth(queries,allTables,150);
 
         // Risultati delle query Lucene
         Map<String, List<String>> luceneResults = new HashMap<>();
@@ -97,12 +97,20 @@ public class Validate_Application {
             // 2. Aggiungi i risultati alla mappa
             luceneResults.put(inputQuery, results);
         }
-
         // Calcola e stampa le metriche
         double mrr = Metriche.calculateMRR(luceneResults, groundTruth);
+        double ndcg = 0.0 ;
+        double queryNumber =0.0;
+        for (String query : luceneResults.keySet()) {
+            ndcg +=  Metriche.calculateNDCG(luceneResults.get(query),groundTruth.get(query), 10);
+            queryNumber++;
+        }
+      
         System.out.println("MRR complessivo: " + mrr);
-        System.out.println("Risultati: " + luceneResults);
-        System.out.println("Rilevanti: " + groundTruth);
+        System.out.println("NDCG medio: " + ndcg/queryNumber +"\n");
+        System.out.println("Risultati: " + luceneResults +"\n");
+        System.out.println("Tabelle rilevanti (ground truth): " + groundTruth);
     }
 
 }
+
